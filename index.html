@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vue and Firebase</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/jgthms/minireset.css/master/minireset.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
 </head>
 <body>
     <main>
         <ul>
-            <li v-for='day in workdays'> {{ day }}</li>
+            <li v-for='(value, key, index in user'>
+                {{key}}: {{key}}: {{value}}
+            </li>
         </ul>
+
+        <form v-on:submit.prevent="addTask">
+            <input type="text" placeholder="Add New Task" v-model="newTaskDescription">
+            <input type="submit" value="Send" >
+        </form>
+        
         <ul>
              <li v-for='(todo, index) in todos'>
                 {{ index }} - 
@@ -18,13 +29,7 @@
                 <small>{{ todo.priority }}</small>
             </li>
         </ul>
-        <ul>
-            <li v-for='(value, key, index in user'>
-                {{key}}: {{key}}: {{value}}
-            </li>
-        </ul>
-
-        <pre>{{ $data }}</pre>   
+        <pre>{{ $data  }}</pre>
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -34,6 +39,7 @@
 const nm = new Vue({
     el: 'main',
     data: {
+        newTaskDescription: '',
         workdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         todos: [
             { description: 'Homework', priority: 'medium' },
@@ -45,9 +51,17 @@ const nm = new Vue({
             password: '12345',
             about: 'About Alice'
         }
+    },
+    methods: {
+        addTask () {
+            this.todos.unshift({ 
+                description: this.newTaskDescription, 
+                priority: 'medium' 
+            });
+            this.newTaskDescription = '';
+            
+        }
     }
 });
-
-
 </script>
 </html>
