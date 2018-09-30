@@ -6,14 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Vue and Firebase</title>
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="https://cdn.rawgit.com/jgthms/minireset.css/master/minireset.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
 </head>
 <body>
     <main>
         <ul>
             <li v-for='(value, key, index in user'>
-                {{key}}: {{key}}: {{value}}
+                {{key}}: {{value}}
             </li>
         </ul>
 
@@ -21,15 +20,28 @@
             <input type="text" placeholder="Add New Task" v-model="newTaskDescription">
             <input type="submit" value="Send" >
         </form>
-        
+
+
+        <h1>Top Priorities</h1>
         <ul>
-             <li v-for='(todo, index) in todos'>
-                {{ index }} - 
+             <li v-for='(todo in topPriorities'>
                 {{ todo.description }}
                 <small>{{ todo.priority }}</small>
             </li>
         </ul>
-        <pre>{{ $data  }}</pre>
+
+        
+        <input type="range" min="0" max="10" v-model="minimumPriority">
+        <!-- <pre>{{ $data  }}</pre> -->
+
+        <h1>Search</h1>
+        <input type="search" v-model="keyword" placeholder="Insert Keyword">
+        <ul>
+             <li v-for='(todo in searchTask'>
+                {{ todo.description }}
+                <small>{{ todo.priority }}</small>
+            </li>
+        </ul>
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -40,11 +52,13 @@ const nm = new Vue({
     el: 'main',
     data: {
         newTaskDescription: '',
+        keyword: '',
+        minimumPriority: 5,
         workdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
         todos: [
-            { description: 'Homework', priority: 'medium' },
-            { description: 'Learn Vue', priority: 'high' },
-            { description: 'Laundry', priority: 'low' },            
+            { description: 'Homework', priority: 8 },
+            { description: 'Learn Vue', priority: 10 },
+            { description: 'Laundry', priority: 1 },            
         ],
         user: {
             username: 'Alice',
@@ -56,10 +70,20 @@ const nm = new Vue({
         addTask () {
             this.todos.unshift({ 
                 description: this.newTaskDescription, 
-                priority: 'medium' 
+                priority: 5
             });
             this.newTaskDescription = '';
             
+        }
+    },
+    computed: {
+        topPriorities() {
+            return this.todos.filter(
+                (todo) => todo.priority >= this.minimumPriority)
+        },
+        searchTask() {
+            return this.todos.filter(
+                (todo) => todo.description.includes(this.keyword))
         }
     }
 });
