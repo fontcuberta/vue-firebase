@@ -8,19 +8,22 @@
 </head>
 <body>
     <main>
-        <h2 v-if="age < 18">No puedes entrar</h2>
-        <h2 v-else-if="age > 200">Eres inmortal</h2>
-        <h2 v-else>Puedes entrar</h2>
+        <ul>
+            <li v-for='day in workdays'> {{ day }}</li>
+        </ul>
+        <ul>
+             <li v-for='(todo, index) in todos'>
+                {{ index }} - 
+                {{ todo.description }}
+                <small>{{ todo.priority }}</small>
+            </li>
+        </ul>
+        <ul>
+            <li v-for='(value, key, index in user'>
+                {{key}}: {{key}}: {{value}}
+            </li>
+        </ul>
 
-        <template v-if="connected">
-            <h3>Bienvenido, Lucas</h3>
-            <ul>
-                <li>Una idea</li>
-                <li>Otra idea</li>
-                <li>Más idea</li>
-            </ul>
-        </template>
-        <h1 v-else> No estoy conectado </h1>
         <pre>{{ $data }}</pre>   
     </main>
 </body>
@@ -31,8 +34,17 @@
 const nm = new Vue({
     el: 'main',
     data: {
-        connected: false,
-        age: 44
+        workdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        todos: [
+            { description: 'Homework', priority: 'medium' },
+            { description: 'Learn Vue', priority: 'high' },
+            { description: 'Laundry', priority: 'low' },            
+        ],
+        user: {
+            username: 'Alice',
+            password: '12345',
+            about: 'About Alice'
+        }
     }
 });
 
