@@ -8,4 +8,4 @@ Find the tutorial by [Juan Andrés Nuñez](http://wmedia.es/acerca-de-mi/) [here
 
 Thanks!
 
-@fontcuberta :unicorn_face:
+@fontcuberta :unicorn:
