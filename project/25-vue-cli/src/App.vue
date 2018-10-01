@@ -1,12 +1,16 @@
 <template>
-<person></person>
+  <div>
+    <person></person> 
+    <task></task>
+  </div>
 </template>
 
 <script>
 import person from './components/Person.vue';
+import task from './components/Task.vue';
 export default {
   name: 'app',
-  components: {person},
+  components: {person, task},
   data () {
     return {}
   }
