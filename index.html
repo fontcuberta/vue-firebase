@@ -9,90 +9,36 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900">
     <style>
-        li {
-        cursor: pointer;
-         }
-        .finished {
-        text-decoration: line-through;
-        }
-        .comeout-enter {
-            opacity: 0;
-        }
-        .comeout-enter-active {
-            transition: opacity 3s;
-        }
-        .comeout-leave-to {
-            opacity: 0;
-        }
-        .comeout-leave-active {
-            transition: opacity 3s;
-        }
+
     </style>
 </head>
 
 <body>
     <main>
-
-        <form v-on:submit.prevent="addTask">
-            <input type="text" placeholder="Add New Task" v-model="newTaskDescription">
-            <input type="submit" value="Send">
-        </form>
-
-
-        <h1>ToDo List</h1>
-        <ul>
-            <li v-bind:class="{finished: todo.finished}" v-for='todo in todos' @click="finishTask(todo)">
-                {{ todo.description }}
-                <small>{{ todo.priority }}</small>
-            </li>
-        </ul>
-
-        <transition name="comeout" appear>
-            <h1 v-if="show">Finished: </h1>
-        </transition>
-        <h2> {{ finishedTasks.length }} </h2>
-
-
-
-
-        <input type="range" min="0" max="10" v-model="minimumPriority">
-        <!-- <pre>{{ $data  }}</pre> -->
+        <img v-for="person in people" :src="person.picture.thumbnail" :alt="person.name.first">
+        <pre>{{ $data }}</pre>
 
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
 <script>
     "use strict";
 
-    const nm = new Vue({
+    const vm = new Vue({
         el: 'main',
+        mounted() {
+            this.fetchPeople()
+        },
         data: {
-            show: true,
-            newTaskDescription: '',
-            keyword: '',
-            minimumPriority: 5,
-            todos: [{
-                    description: 'Homework',
-                    finished: false
-                },
-                {
-                    description: 'Learn Vue',
-                    finished: true
-                },
-                {
-                    description: 'Laundry',
-                    finished: false
-                },
-            ]
+            people: []
         },
         methods: {
-            finishTask(todo) {
-                todo.finished = !todo.finished
-            }
-        },
-        computed: {
-            finishedTasks() {
-                return this.todos.filter((todo) => todo.finished);
+            fetchPeople() {
+                this.$http.get('https://randomuser.me/api/?results=50')
+                    .then((response) => {
+                        this.people = response.body.results;
+                    });
             }
         }
     });
