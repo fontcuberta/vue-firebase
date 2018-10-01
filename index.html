@@ -15,6 +15,18 @@
         .finished {
         text-decoration: line-through;
         }
+        .comeout-enter {
+            opacity: 0;
+        }
+        .comeout-enter-active {
+            transition: opacity 3s;
+        }
+        .comeout-leave-to {
+            opacity: 0;
+        }
+        .comeout-leave-active {
+            transition: opacity 3s;
+        }
     </style>
 </head>
 
@@ -35,9 +47,13 @@
             </li>
         </ul>
 
-
-        <h1>Finished: </h1>
+        <transition name="comeout" appear>
+            <h1 v-if="show">Finished: </h1>
+        </transition>
         <h2> {{ finishedTasks.length }} </h2>
+
+
+
 
         <input type="range" min="0" max="10" v-model="minimumPriority">
         <!-- <pre>{{ $data  }}</pre> -->
@@ -51,6 +67,7 @@
     const nm = new Vue({
         el: 'main',
         data: {
+            show: true,
             newTaskDescription: '',
             keyword: '',
             minimumPriority: 5,
