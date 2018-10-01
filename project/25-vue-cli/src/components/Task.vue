@@ -12,6 +12,7 @@
             <a href="#" @click= "updateTask(task)" v-text="task.name"></a>
         </li>
     </ul>
+
 </div>
     
 </template>
@@ -46,7 +47,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 li a {
     color: #ab0077;
