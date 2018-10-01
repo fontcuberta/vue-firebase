@@ -19,8 +19,10 @@
             <li v-for="todo in todos" v-text="todo.title"></li>
         </ul> -->
         <!-- <my-todos :todos="todos"></my-todos> -->
-        <h1>My tasks (independent component)</h1>
-        <my-todos></my-todos>
+        <!-- <h1>My tasks (independent component)</h1>
+        <my-todos></my-todos> -->
+
+        <pick-winner :list='people'></pick-winner>
         <pre>{{ $data }}</pre>
 
     </main>
@@ -57,9 +59,39 @@
         }
     });
 
+    Vue.component('pick-winner', {
+        props: ['list'],
+        template: `<div>
+                        <h1>Players:</h1>
+                        <ul>
+                            <li v-for="person in list">{{ person }}</li>
+                        </ul>
+
+                        <h1 v-if="winner">Winner: {{ winner }}</h1>
+                        <button @click="pickWinner">Play</button>
+                   </div>`,
+        methods: {
+            pickWinner() {
+                let totalPlayers = this.players.length;
+                let index = Math.floor((Math.random() * totalPlayers));
+                this.winner = this.players[index - 1];
+            }
+        },
+        data() {
+            return {
+                winner: false,
+                players: this.list
+            }
+        }
+    });
 
     new Vue({
         el: 'main',
+        data: {
+            people: [
+                'John', 'Alice', 'Peter', 'James', 'Marc'
+            ]
+        }
     });
 </script>
 
