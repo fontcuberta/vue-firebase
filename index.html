@@ -15,7 +15,10 @@
 
 <body>
     <main>
-        <img v-for="person in people" :src="person.picture.thumbnail" :alt="person.name.first">
+        <!-- <ul>
+            <li v-for="todo in todos" v-text="todo.title"></li>
+        </ul> -->
+        <my-todos :todos="todos"></my-todos>
         <pre>{{ $data }}</pre>
 
     </main>
@@ -25,31 +28,24 @@
 <script>
     "use strict";
 
-    const vm = new Vue({
+    Vue.component('my-todos', {
+        props: ['todos'],
+        template: `<ul>
+                <li v-for="todo in todos" v-text="todo.title"></li>
+                   </ul>`
+
+    });
+
+    new Vue({
         el: 'main',
         mounted() {
-            this.fetchPeople()
+            axios.get('https://jsonplaceholder.typicode.com/todos')
+                .then((response) => {
+                    this.todos = response.data
+                })
         },
         data: {
-            people: []
-        },
-        methods: {
-            // Vue Resources
-            // fetchPeople() {
-            //     this.$http.get('https://randomuser.me/api/?results=50')
-            //         .then((response) => {
-            //             this.people = response.body.results;
-            //         });
-            // }
-
-            // Axios
-
-            fetchPeople() {
-                axios.get('https://randomuser.me/api/?results=50')
-                    .then((response) => {
-                        this.people = response.data.results;
-                    })
-            }
+            todos: [],
         }
     });
 </script>
