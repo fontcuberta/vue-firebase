@@ -2,17 +2,25 @@
   <div>
     <person></person> 
     <task></task>
+    <counter :quantity="quantity" 
+              @increase="quantity++"
+              @reduce="quantity--">
+          
+          </counter>
   </div>
 </template>
 
 <script>
 import person from './components/Person.vue';
 import task from './components/Task.vue';
+import counter from './components/Counter.vue'
 export default {
   name: 'app',
-  components: {person, task},
+  components: {person, task, counter},
   data () {
-    return {}
+    return {
+      quantity: 0
+    }
   }
 }
 </script>
