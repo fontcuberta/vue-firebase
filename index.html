@@ -18,7 +18,9 @@
         <!-- <ul>
             <li v-for="todo in todos" v-text="todo.title"></li>
         </ul> -->
-        <my-todos :todos="todos"></my-todos>
+        <!-- <my-todos :todos="todos"></my-todos> -->
+        <h1>My tasks (independent component)</h1>
+        <my-todos></my-todos>
         <pre>{{ $data }}</pre>
 
     </main>
@@ -29,24 +31,35 @@
     "use strict";
 
     Vue.component('my-todos', {
-        props: ['todos'],
         template: `<ul>
                 <li v-for="todo in todos" v-text="todo.title"></li>
-                   </ul>`
-
-    });
-
-    new Vue({
-        el: 'main',
+                   </ul>`,
         mounted() {
             axios.get('https://jsonplaceholder.typicode.com/todos')
                 .then((response) => {
                     this.todos = response.data
                 })
         },
-        data: {
-            todos: [],
+        data() {
+            return {
+                todos: [],
+                myTodos: [{
+                        title: 'Learn Vue'
+                    },
+                    {
+                        title: 'Laundry'
+                    },
+                    {
+                        title: 'Homework'
+                    }
+                ]
+            }
         }
+    });
+
+
+    new Vue({
+        el: 'main',
     });
 </script>
 
