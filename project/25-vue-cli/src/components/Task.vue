@@ -18,15 +18,10 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
     data () {
         return {
-            tasks: [
-                {name: "Find Nemo", completed: false},
-                {name: "The Little Mermaid", completed: true},
-                {name: "Monsters Inc", completed: false},
-                {name: "The Incredibles", completed: false},
-            ],
             completed: []
         }
     },
@@ -35,15 +30,7 @@ export default {
             task.completed = !task.completed;
         }
     },
-    computed: {
-        tasksUnfinished () {
-            return this.tasks.filter((task) => !task.completed);
-        },
-        tasksFinished () {
-            return this.tasks.filter((task) => task.completed);
-        },
-
-    }
+    computed: mapGetters(['tasksUnfinished', 'tasksFinished'])
 }
 </script>
 
