@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Routes with Vue-Router</h1>
-    <router-link to="/">Home</router-link>
-    <router-link to="/contact">Contact</router-link>
+    <router-link to="/" active-class="active-menu" exact>Home</router-link>
+    <router-link to="/contact" active-class="active-menu" exact>Contact</router-link>
 
     <hr>
     <router-view></router-view>
@@ -39,6 +39,16 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.active-menu {
+  color: #7844aa;
+  text-decoration: none;
+}
+
+a {
+  color: #00aabb;
+  text-decoration: none;
 }
 
 </style>
