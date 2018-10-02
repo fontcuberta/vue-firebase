@@ -20,5 +20,17 @@ export const store = new Vuex.Store({
         tasksFinished: (state)  =>  {
             return state.tasks.filter((task) => task.completed);
         },
+    },
+    mutations: {
+        increase: (state) => state.quantity++,
+        reduce: (state) => state.quantity--
+    },
+    actions: {
+        increaseAsync: (context) => {
+            setTimeout(() => context.commit('increase'), 2000);
+        },
+        reduceAsync: (context) => {
+            setTimeout(() => context.commit('reduce'), 2000);
+        }
     }
 });
