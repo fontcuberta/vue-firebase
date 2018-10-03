@@ -3,6 +3,8 @@
     <h1>Routes with Vue-Router</h1>
     <router-link to="/" active-class="active-menu" exact>Home</router-link>
     <router-link to="/contact" active-class="active-menu" exact>Contact</router-link>
+    <router-link to="/user/77" active-class="active-menu" exact>User</router-link>
+    <router-link to="/user/99" active-class="active-menu" exact>User99</router-link>
 
     <hr>
     <router-view></router-view>
